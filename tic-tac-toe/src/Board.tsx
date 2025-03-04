@@ -3,13 +3,19 @@ import { useState } from 'react';
 import Square from './Square';
 
 
+type BoardState = {
+    isWon: boolean;
+	winner: string | null;
+}
+
+
 export default function Board() {
 
-    const [boardState, setBoardState] = useState({isWon: false, winner: null});
-    const [xIsNext, setXIsNext] = useState(true);
-    const [squares, setSquares] = useState(Array(9).fill(null));
+    const [boardState, setBoardState] = useState<BoardState>({isWon: false, winner: null});
+    const [xIsNext, setXIsNext] = useState<boolean>(true);
+    const [squares, setSquares] = useState<Array<string | null>>(Array(9).fill(null));
 
-    function calculateWinner(squares) {
+    function calculateWinner(squares : Array<string | null>) {
         const lines = [
             [0, 1, 2],
             [3, 4, 5],
@@ -29,6 +35,19 @@ export default function Board() {
         return null;
     }
 
+    function updateGameState(squares : Array<string | null>) {
+
+        if(boardState.isWon) {
+            return;
+        }
+
+        const winner = calculateWinner(squares);
+        if (winner)
+        {
+            setBoardState({isWon: true, winner: winner});
+        }
+    }
+
     function handleClick(i : number) {
 
         if (boardState.isWon) {
@@ -44,13 +63,10 @@ export default function Board() {
         setSquares(nextSquares);
         setXIsNext(!xIsNext);
 
-        const winner = calculateWinner(squares);
-        if (winner)
-        {
-            setBoardState({isWon: true, winner: winner});
-        }
+        updateGameState(squares);
     }
 
+    updateGameState(squares);
     let status;
     if (boardState.isWon) {
         status = "Winner: " + boardState.winner;

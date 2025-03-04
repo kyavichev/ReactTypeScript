@@ -1,9 +1,11 @@
 
-import { useState } from 'react';
+type SquareProps = {
+	value: string | null;
+	onSquareClick: () => void;
+};
 
+export default function Square({value, onSquareClick} : SquareProps) {
 
-export default function Square({value, onSquareClick}) {
-
-    return <button className="square" onClick={onSquareClick}>{value}</button>;
+	return <button className="square" onClick={onSquareClick}>{value}</button>;
 
 }
