@@ -3,10 +3,11 @@ import { useState } from 'react';
 
 type SquareProps = {
 	value: string | null;
+	isWinSquare: boolean,
 	onSquareClick: () => void;
 };
 
-export default function Square({value, onSquareClick} : SquareProps) {
+export default function Square({value, isWinSquare, onSquareClick} : SquareProps) {
 
 	const [isHighlighted, setIsHighlighted] = useState<boolean>(false);
 
@@ -14,7 +15,7 @@ export default function Square({value, onSquareClick} : SquareProps) {
 		className="square" 
 		onClick={onSquareClick}
 		style={{
-			backgroundColor: isHighlighted ? '#b8f6f1' : 'transparent',
+			backgroundColor: isWinSquare ? '#c5f6b8' : isHighlighted ? '#b8f6f1' : 'transparent',
 		}}
 		onMouseEnter={() => setIsHighlighted(true)}
       	onMouseLeave={() => setIsHighlighted(false)}
