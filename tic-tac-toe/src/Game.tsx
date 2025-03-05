@@ -1,10 +1,14 @@
 
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Board from './Board';
 
 
 export default function Game() {
+
+	useEffect(() => {
+		document.title = "Tic Tac Toe"
+	 }, []);
 
 	const [history, setHistory] = useState<Array<Array<string | null>>>([Array(9).fill(null)]);
 	const [currentMove, setCurrentMove] = useState<number>(0);

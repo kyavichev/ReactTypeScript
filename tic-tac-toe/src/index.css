@@ -74,9 +74,14 @@ ul {
 .status {
   margin-bottom: 10px;
 }
+
 .game {
   display: flex;
   flex-direction: row;
+}
+
+.game-board {
+  margin: 20px;
 }
 
 .game-info {

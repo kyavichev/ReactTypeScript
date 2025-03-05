@@ -64,8 +64,6 @@ export default function Board({ xIsNext, squares, onPlay } : BoardProps) {
 
 		const nextSquares = squares.slice();
 		nextSquares[i] = xIsNext ? "X" : "O";
-		// setSquares(nextSquares);
-		// setXIsNext(!xIsNext);
 
 		updateGameState(squares);
 
