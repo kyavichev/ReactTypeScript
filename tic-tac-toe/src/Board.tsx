@@ -9,15 +9,8 @@ type BoardProps = {
 	onPlay: (nextSquares: Array<string | null>) => void;
 };
 
-type BoardState = {
-	isWon: boolean;
-	winner: string | null;
-}
-
 
 export default function Board({ xIsNext, squares, onPlay } : BoardProps) {
-
-	const [boardState, setBoardState] = useState<BoardState>({isWon: false, winner: null});
 
 	function calculateWinner(squares : Array<string | null>) {
 		const lines = [
@@ -39,22 +32,10 @@ export default function Board({ xIsNext, squares, onPlay } : BoardProps) {
 		return null;
 	}
 
-	function updateGameState(squares : Array<string | null>) {
-
-		if(boardState.isWon) {
-			return;
-		}
-
-		const winner = calculateWinner(squares);
-		if (winner)
-		{
-			setBoardState({isWon: true, winner: winner});
-		}
-	}
-
 	function handleClick(i : number) {
 
-		if (boardState.isWon) {
+		const winner = calculateWinner(squares);
+		if (winner) {
 			return;
 		}
 
@@ -65,15 +46,13 @@ export default function Board({ xIsNext, squares, onPlay } : BoardProps) {
 		const nextSquares = squares.slice();
 		nextSquares[i] = xIsNext ? "X" : "O";
 
-		updateGameState(squares);
-
 		onPlay(nextSquares);
 	}
 
-	updateGameState(squares);
+	const winner = calculateWinner(squares);
 	let status;
-	if (boardState.isWon) {
-		status = "Winner: " + boardState.winner;
+	if (winner) {
+		status = "Winner: " + winner;
 	} else {
 		status = "Next player: " + (xIsNext ? "X" : "O");
 	}
