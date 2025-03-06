@@ -1,4 +1,4 @@
 # TicTacToeReactTypeScript
 
-Based on an official react tutorial from [here](https://react.dev/learn/tutorial-tic-tac-toe)
+- [Tic Tac Toe](/tic-tac-toe): Simple implementation using React and TypeScript
 
