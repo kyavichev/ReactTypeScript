@@ -46,6 +46,15 @@ export default function Weather() {
 	};
 
 
+	const calculateCelsius = (kelvins: number) => {
+		return Math.round((kelvins - 273.15) * 100) / 100;
+	}
+
+	const calculateFahrenheit = (kelvins: number) => {
+		return Math.round(((kelvins - 273.15) * 1.8 + 32) * 100) / 100;
+	}
+
+
 	if (!weather) {
 		return (
 			<>
@@ -76,11 +85,13 @@ export default function Weather() {
 
 				{ !weather.message && 
 					<>
-						<h2>{weather.name}</h2>
-						<p>{weather.weather[0].description}</p>
-						<p>Temperature: {weather.main.temp}</p>
-						<p>Feels Like: {weather.main.feels_like}</p>
-						<p>Humidity: {weather.main.humidity}</p>
+						<section className='weather_info'>
+							<h2>{weather.name}</h2>
+							<p>{weather.weather[0].description}</p>
+							<p>Temperature: {calculateCelsius(weather.main.temp)}° ({calculateFahrenheit(weather.main.temp)}°F)</p>
+							<p>Feels Like: {weather.main.feels_like}</p>
+							<p>Humidity: {weather.main.humidity}</p>
+						</section>
 					</>
 				}
 
