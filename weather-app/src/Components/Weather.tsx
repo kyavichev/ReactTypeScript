@@ -45,6 +45,10 @@ export default function Weather() {
 		fetchWeather();
 	};
 
+	const changeCity = (cityName: string) => {
+		setCity(cityName)
+	}
+
 
 	const calculateCelsius = (kelvins: number) => {
 		return Math.round((kelvins - 273.15) * 100) / 100;
@@ -66,36 +70,47 @@ export default function Weather() {
 
 	return (
 		<>
-			<div className='weather'>
-				<h1>Weather App</h1>
+			<div className='weather_page'>
+				<div className='weather'>
+					<h1>Weather App</h1>
 
-				<form onSubmit={handleSubmit}>
-        			<label htmlFor="city">City:</label>
-        			<input
-          				type="text"
-          				id="city"
-          				name="city"
-          				value={city}
-          				onChange={handleCityChange}
-        			/>
-        			<button type="submit">Submit</button>
-      			</form>
+					<form onSubmit={handleSubmit}>
+						<label htmlFor="city">City:</label>
+						<input
+							type="text"
+							id="city"
+							name="city"
+							value={city}
+							onChange={handleCityChange}
+						/>
+						<button type="submit">Submit</button>
+					</form>
 
-				{ weather.message && <h2>{weather.message}</h2> }
+					{ weather.message && <h2>{weather.message}</h2> }
 
-				{ !weather.message && 
-					<>
-						<section className='weather_info'>
-							<h2>{weather.name}</h2>
-							<p>{weather.weather[0].description}</p>
-							<p>Temperature: {calculateCelsius(weather.main.temp)}° ({calculateFahrenheit(weather.main.temp)}°F)</p>
-							<p>Feels Like: {calculateCelsius(weather.main.feels_like)}° ({calculateFahrenheit(weather.main.feels_like)}°F)</p>
-							<p>Humidity: {weather.main.humidity}</p>
-						</section>
-					</>
-				}
+					{ !weather.message && 
+						<>
+							<section className='weather_info'>
+								<h2>{weather.name}</h2>
+								<p>{weather.weather[0].description}</p>
+								<p>Temperature: {calculateCelsius(weather.main.temp)}° ({calculateFahrenheit(weather.main.temp)}°F)</p>
+								<p>Feels Like: {calculateCelsius(weather.main.feels_like)}° ({calculateFahrenheit(weather.main.feels_like)}°F)</p>
+								<p>Humidity: {weather.main.humidity}</p>
+							</section>
+						</>
+					}
 
-				<Map lat={location.lat} lng={location.lng} />
+					<Map lat={location.lat} lng={location.lng} />
+				</div>
+
+				<div className='location_links'>
+					<button className='location_button' onClick={() => changeCity('San Francisco,CA,US')}>San Francisco</button>
+					<button className='location_button' onClick={() => changeCity('El Cerrito,CA,US')}>El Cerrito</button>
+					<button className='location_button' onClick={() => changeCity('Overland Park,KS,US')}>Overland Park</button>
+					<button className='location_button' onClick={() => changeCity('Palma,ES')}>Palma</button>
+					<button className='location_button' onClick={() => changeCity('Saratov,RU')}>Saratov</button>
+					<button className='location_button' onClick={() => changeCity('Carlsbad,CA,US')}>Carslabd</button>
+				</div>
 			</div>
 		</>
 	);
