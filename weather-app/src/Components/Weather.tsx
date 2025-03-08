@@ -89,7 +89,7 @@ export default function Weather() {
 							<h2>{weather.name}</h2>
 							<p>{weather.weather[0].description}</p>
 							<p>Temperature: {calculateCelsius(weather.main.temp)}° ({calculateFahrenheit(weather.main.temp)}°F)</p>
-							<p>Feels Like: {weather.main.feels_like}</p>
+							<p>Feels Like: {calculateCelsius(weather.main.feels_like)}° ({calculateFahrenheit(weather.main.feels_like)}°F)</p>
 							<p>Humidity: {weather.main.humidity}</p>
 						</section>
 					</>

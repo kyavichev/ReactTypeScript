@@ -14,11 +14,6 @@
 	font-size: 1.6rem;
 	margin: 1rem 0;
 }
-  
-.weather p {
-	font-size: 1.5rem;
-	margin: 0.5rem 0;
-}
 
 .weather_info_content {
 	width: 800px;
@@ -27,5 +22,11 @@
 .weather_info {
 	width: 800px;
 	text-align: left;
+	font-size: 0.28rem;
+}
+
+.weather_info p {
+	font-size: 1.2rem;
+	margin: 0.35rem 0;
 }
   
