@@ -50,8 +50,8 @@ export default function Board({ xIsNext, squares, onPlay } : BoardProps) {
 	}
 
 	const winnerInfo = calculateWinner(squares);
-	let status;
-	let line;
+	let status : string;
+	let line: number[];
 	if (winnerInfo && winnerInfo.winner) {
 		status = "Winner: " + winnerInfo.winner;
 		line = winnerInfo.line;
@@ -60,24 +60,33 @@ export default function Board({ xIsNext, squares, onPlay } : BoardProps) {
 		line = [-1];
 	}
 
+	const size = 3;
+
+	const rows = [];
+	for(let i = 0; i < size; i++)
+	{
+		let rowS = i * 3;
+		let rowE = rowS + 3;
+		let row = squares.filter((square, index) => (index >= rowS && index < rowE)).map( (square, index: number) =>{
+			let arrayIndex = index + rowS;
+			return <Square value={square} isWinSquare={line.includes(arrayIndex)} onSquareClick={() => handleClick(arrayIndex)} />;
+		});
+		rows.push(row);
+	}
+
+	const tiles = rows.map( (row, index) => {
+		return (
+			<div className="board-row">
+				{row}
+			</div>
+		);
+	});
+
+
 	return (
 		<>
 			<div className="status">{status}</div>
-			<div className="board-row">
-				<Square value={squares[0]} isWinSquare={line.includes(0)} onSquareClick={() => handleClick(0)} />
-				<Square value={squares[1]} isWinSquare={line.includes(1)} onSquareClick={() => handleClick(1)} />
-				<Square value={squares[2]} isWinSquare={line.includes(2)} onSquareClick={() => handleClick(2)} />
-			</div>
-			<div className="board-row">
-				<Square value={squares[3]} isWinSquare={line.includes(3)} onSquareClick={() => handleClick(3)} />
-				<Square value={squares[4]} isWinSquare={line.includes(4)} onSquareClick={() => handleClick(4)} />
-				<Square value={squares[5]} isWinSquare={line.includes(5)} onSquareClick={() => handleClick(5)} />
-			</div>
-			<div className="board-row">
-				<Square value={squares[6]} isWinSquare={line.includes(6)} onSquareClick={() => handleClick(6)} />
-				<Square value={squares[7]} isWinSquare={line.includes(7)} onSquareClick={() => handleClick(7)} />
-				<Square value={squares[8]} isWinSquare={line.includes(8)} onSquareClick={() => handleClick(8)} />
-			</div>
+			{tiles}
 		</>
 	);
   }
