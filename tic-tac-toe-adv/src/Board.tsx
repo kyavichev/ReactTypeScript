@@ -4,13 +4,14 @@ import Square from './Square';
 
 
 type BoardProps = {
+	boardSize: number,
 	xIsNext: boolean;
 	squares: Array<string | null>;
 	onPlay: (nextSquares: Array<string | null>) => void;
 };
 
 
-export default function Board({ xIsNext, squares, onPlay } : BoardProps) {
+export default function Board({boardSize, xIsNext, squares, onPlay } : BoardProps) {
 
 	function calculateWinner(squares : Array<string | null>) {
 		const lines = [
@@ -33,7 +34,6 @@ export default function Board({ xIsNext, squares, onPlay } : BoardProps) {
 	}
 
 	function handleClick(i : number) : void {
-
 		const winner = calculateWinner(squares);
 		if (winner) {
 			return;
@@ -60,15 +60,14 @@ export default function Board({ xIsNext, squares, onPlay } : BoardProps) {
 		line = [-1];
 	}
 
-	const size = 3;
-
 	const rows = [];
-	for(let i = 0; i < size; i++)
+	for(let i: number = 0; i < boardSize; i++)
 	{
-		let rowS = i * 3;
-		let rowE = rowS + 3;
-		let row = squares.filter((square, index) => (index >= rowS && index < rowE)).map( (square, index: number) =>{
-			let arrayIndex = index + rowS;
+		let startIndex: number = i * boardSize;
+		let endIndex: number = startIndex + boardSize;
+
+		const row = squares.filter((_, index) => (index >= startIndex && index < endIndex)).map( (square, index: number) => {
+			let arrayIndex = index + startIndex;
 			return <Square value={square} isWinSquare={line.includes(arrayIndex)} onSquareClick={() => handleClick(arrayIndex)} />;
 		});
 		rows.push(row);

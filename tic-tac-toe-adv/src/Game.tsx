@@ -7,14 +7,28 @@ import Board from './Board';
 export default function Game() {
 
 	useEffect(() => {
-		document.title = "Tic Tac Toe"
-	 }, []);
+		document.title = "Tic Tac Toe Adv"
+	}, []);
 
-	const [history, setHistory] = useState<Array<Array<string | null>>>([Array(9).fill(null)]);
+	const [boardSize, setBoardSize] = useState<number>(3);
+	const [history, setHistory] = useState<Array<Array<string | null>>>([Array(boardSize * boardSize).fill(null)]);
 	const [currentMove, setCurrentMove] = useState<number>(0);
 
 	const xIsNext = currentMove % 2 === 0;
 	const currentSquares = history[currentMove];
+
+	function handleBoardSizeChange(event : any) {
+		const value = event.target.value;
+    	const numericValue = value.replace(/[^0-9]/g, '');
+		const newBoardSize: number = parseInt(numericValue);
+		setBoardSize(newBoardSize);
+		if(!isNaN(newBoardSize) && newBoardSize > 0)
+		{
+			const newHistory = [Array(newBoardSize * newBoardSize).fill(null)];
+			setHistory(newHistory);
+			setCurrentMove(0);
+		}
+	}
 
 	function handlePlay(nextSquares : Array<string | null>) {
 		const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -26,8 +40,7 @@ export default function Game() {
 		setCurrentMove(nextMove);
 	}
 
-	const moves = history.map((squares, move) => {
-
+	const moves = history.map((_, move) => {
 		let description;
 		if (move > 0) {
 			description = 'Go to move #' + move;
@@ -44,8 +57,15 @@ export default function Game() {
 	return (
     	<>
 		    <div className="game">
+				<div className="game-board-size">
+					<select value={boardSize} onChange={handleBoardSizeChange}>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+				</div>
 				<div className="game-board">
-					<Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+					<Board boardSize={boardSize} xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
 				</div>
 				<div className="game-info">
 					<ol>{moves}</ol>
