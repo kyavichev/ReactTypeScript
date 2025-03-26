@@ -14,8 +14,9 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ededed;
+    --foreground: #0a0a0a;
+    --textColor: #333;
   }
 }
 
@@ -23,4 +24,11 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.signature
+{
+		padding: 10px;
+		font-size: 12px;
+		color: var(--textColor);
 }

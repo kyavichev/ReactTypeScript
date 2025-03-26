@@ -1,45 +1,11 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { useLazyQuery } from '@apollo/client';
 import { useGetUsersPhotosLazyQuery, Photo } from '@/generated/graphql';
-
-// import { graphql } from "../gql";
-// import { Photo } from "../gql/graphql";
-
 import "./ImageApp.css";
-
-// Feel free to edit these imports
 import Controls from "./Controls";
 import Thumbnail from "./Thumbnail";
 
-// const GET_USERS_PHOTOS = graphql(`
-// 	# GraphQL query variables are defined using "$var: Type", such as "$user: String"
-// 	# See GraphQL API playground https://graphqlzero.almansi.me/api for schema
-// 	query GetUsersPhotos($user: String!, $startIndex: Int!) {
-// 		users(options: { search: { q: $user } }) {
-// 			data {
-// 				albums(options: { slice: { limit: 1 } }) {
-// 					data {
-// 						# will need to add $start: Int! and $limit: Int! to the query variables
-// 						photos(options: { slice: { start: $startIndex, limit: 5 } }) {
-// 							meta {
-// 								totalCount
-// 							}
-// 							data {
-// 								id
-// 								thumbnailUrl
-// 								title
-// 								url
-// 								# ...
-// 							}
-// 						}
-// 					}
-// 				}
-// 			}
-// 		}
-// 	}
-// `);
 
 /**
  * The Photo type from the generated GraphQL types can
@@ -70,7 +36,6 @@ const ImageApp: React.FC = () => {
 	});
 
 	const clickHandler = () => {
-		console.count("Clicks"); // for debugging
 		fetchPhotos( { variables: { user: userName, startIndex: numPhotos }}).then((result) => {
 			const users = result.data?.users?.data;
 			if(!users || users.length === 0)
