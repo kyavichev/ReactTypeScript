@@ -1,0 +1,27 @@
+overwrite: true
+schema:
+  - https://graphqlzero.almansi.me/api
+
+documents:
+  - "./src/!(gql)**/*.graphql"
+  - "./src/!(gql)**/*.{ts,tsx}"
+  - "!(*.test.*)"
+generates:
+  src/gql/schema.graphql:
+    plugins:
+      - schema-ast
+  src/gql/:
+    preset: client
+    config:
+      avoidOptionals: true
+      nonOptionalTypename: true
+
+  src/gql/graphql-apollo-helpers.ts:
+    plugins:
+      - typescript-apollo-client-helpers
+  src/gql/graphql-possible-types.ts:
+    plugins:
+      - fragment-matcher
+    config:
+      useExplicitTyping: true
+
