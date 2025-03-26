@@ -1,0 +1,23 @@
+
+query GetUsersPhotos($user: String!, $startIndex: Int!) {
+	users(options: { search: { q: $user } }) {
+		data {
+			albums(options: { slice: { limit: 1 } }) {
+				data {
+					# will need to add $start: Int! and $limit: Int! to the query variables
+					photos(options: { slice: { start: $startIndex, limit: 5 } }) {
+						meta {
+							totalCount
+						}
+						data {
+							id
+							thumbnailUrl
+							title
+							url
+						}
+					}
+				}
+			}
+		}
+	}
+}
