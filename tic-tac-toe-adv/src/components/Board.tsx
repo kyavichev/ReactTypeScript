@@ -6,6 +6,7 @@ import { WinnerInfo } from './WinnerInfo';
 
 type BoardProps = {
 	boardSize: number,
+	requiredLineLength: number,
 	xIsNext: boolean;
 	squares: Array<string | null>;
 	onPlay: (nextSquares: Array<string | null>, winnerInfo: WinnerInfo | null) => void;
@@ -13,7 +14,7 @@ type BoardProps = {
 };
 
 
-export default function Board({boardSize, xIsNext, squares, onPlay, winnerInfo } : BoardProps) {
+export default function Board({boardSize, requiredLineLength, xIsNext, squares, onPlay, winnerInfo } : BoardProps) {
 
 	function calculateWinner(squares : Array<string | null>) {
 		const lines = [
@@ -47,8 +48,6 @@ export default function Board({boardSize, xIsNext, squares, onPlay, winnerInfo }
 			return null;
 		}
 
-		const requiredLineLength = boardSize;
-		
 		let match = 0;
 		const line = [index];
 

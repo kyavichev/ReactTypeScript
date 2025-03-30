@@ -37,9 +37,25 @@ code {
   margin-bottom: 10px;
 }
 
-.game {
+.game-main {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.game-board-setting {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-board-setting-label {
+  width: 200px;
 }
 
 .game-board {
