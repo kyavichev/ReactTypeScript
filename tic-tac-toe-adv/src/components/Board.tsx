@@ -29,11 +29,10 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 
 		const row = Math.floor(index / boardSize);
 		const col = Math.floor(index % boardSize);
-		console.log( `index: ${index}, row: ${row}, col: ${col}`);
 
 		const value = squares[index];
 		if(!value) {
-			console.log("Should not be null here");
+			console.log("Error! Should not be null here");
 			return null;
 		}
 
@@ -48,43 +47,30 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 			line.length = 1;
 			// Go Right
 			let rIndex = index - 1;
-			while(rIndex >= cFirst && match < requiredLineLength)
-			{
-				console.log(`Moving right: checking index ${rIndex}, has value ${squares[rIndex]}`);
-				if(squares[rIndex] === value)
-				{
+			while(rIndex >= cFirst && match < requiredLineLength) {
+				if(squares[rIndex] === value) {
 					line.push(rIndex);
 					match++;
 					rIndex--;
-
-					console.log(`\t it was a match (${match})`);
 				}
-				else
-				{
+				else {
 					break;
 				}
 			}
 			// Go Left
 			let lIndex = index + 1;
-			while(lIndex < cLast && match < requiredLineLength)
-			{
-				console.log(`Moving left: checking index ${lIndex}, has value ${squares[lIndex]}`);
-				if(squares[lIndex] === value)
-				{
+			while(lIndex < cLast && match < requiredLineLength) {
+				if(squares[lIndex] === value) {
 					line.push(lIndex);
 					match++;
 					lIndex++;
-
-					console.log(`\t it was a match (${match})`);
 				}
-				else
-				{
+				else {
 					break;
 				}
 			}
 
-			if(match === requiredLineLength)
-			{
+			if(match === requiredLineLength) {
 				return  {winner: value, line: line};
 			}
 		}
@@ -97,48 +83,35 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 			line.length = 1;
 			// Go Up
 			let uIndex = index - boardSize;
-			while(uIndex >= rFirst && match < requiredLineLength)
-			{
-				console.log(`Moving up: checking index ${uIndex}, has value ${squares[uIndex]}`);
-				if(squares[uIndex] === value)
-				{
+			while(uIndex >= rFirst && match < requiredLineLength) {
+				if(squares[uIndex] === value) {
 					line.push(uIndex);
 					match++;
 					uIndex -= boardSize;
-
-					console.log(`\t it was a match (${match})`);
 				}
-				else
-				{
+				else {
 					break;
 				}
 			}
 			// Go Down
 			let dIndex = index + boardSize;
-			while(dIndex <= rLast && match < requiredLineLength)
-			{
-				console.log(`Moving down: checking index ${dIndex}, has value ${squares[dIndex]}`);
-				if(squares[dIndex] === value)
-				{
+			while(dIndex <= rLast && match < requiredLineLength) {
+				if(squares[dIndex] === value) {
 					line.push(dIndex);
 					match++;
 					dIndex += boardSize;
-
-					console.log(`\t it was a match (${match})`);
 				}
-				else
-				{
+				else {
 					break;
 				}
 			}
 
-			if(match === requiredLineLength)
-			{
+			if(match === requiredLineLength) {
 				return  {winner: value, line: line};
 			}
 		}
 
-		// check vertical
+		// check diagonals
 		{
 			// back slash diag
 			{
@@ -148,8 +121,7 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 				let cRow = row + 1;
 				let cCol = col + 1;
 
-				while(isOnBoard(cRow, cCol) && match < requiredLineLength)
-				{
+				while(isOnBoard(cRow, cCol) && match < requiredLineLength) {
 					let uIndex = getIndex(cRow, cCol);
 					if(squares[uIndex] === value) {
 						line.push(uIndex);
@@ -165,8 +137,7 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 				cRow = row - 1;
 				cCol = col - 1;
 
-				while(isOnBoard(cRow, cCol) && match < requiredLineLength)
-				{
+				while(isOnBoard(cRow, cCol) && match < requiredLineLength) {
 					let uIndex = getIndex(cRow, cCol);
 					if(squares[uIndex] === value) {
 						line.push(uIndex);
@@ -179,8 +150,7 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 					}
 				}
 
-				if(match === requiredLineLength)
-				{
+				if(match === requiredLineLength) {
 					return  {winner: value, line: line};
 				}
 			}
@@ -258,8 +228,7 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 	}
 
 	const rows = [];
-	for(let i: number = 0; i < boardSize; i++)
-	{
+	for(let i: number = 0; i < boardSize; i++) {
 		let startIndex: number = i * boardSize;
 		let endIndex: number = startIndex + boardSize;
 

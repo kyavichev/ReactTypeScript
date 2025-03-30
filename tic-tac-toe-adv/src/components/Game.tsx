@@ -19,17 +19,16 @@ export default function Game() {
 	const [currentMove, setCurrentMove] = useState<number>(0);
 	const [winnerInfo, setWinnerInfo] = useState<WinnerInfo | null>(null);
 
-
 	const xIsNext = currentMove % 2 === 0;
 	const currentSquares = history[currentMove];
+
 
 	function handleBoardSizeChange(event : any) {
 		const value = event.target.value;
     	const numericValue = value.replace(/[^0-9]/g, '');
 		const newBoardSize: number = parseInt(numericValue);
 		setBoardSize(newBoardSize);
-		if(!isNaN(newBoardSize) && newBoardSize > 0)
-		{
+		if(!isNaN(newBoardSize) && newBoardSize > 0) {
 			setRequiredLineLength(newBoardSize);
 			const newHistory = [Array(newBoardSize * newBoardSize).fill(null)];
 			setHistory(newHistory);
@@ -58,10 +57,12 @@ export default function Game() {
 		setWinnerInfo(newWinnerInfo);
 	}
 
+
 	function jumpTo(nextMove : number) {
 		setCurrentMove(nextMove);
 	}
 
+	
 	const moves = history.map((_, move) => {
 		let description;
 		if (move > 0) {
