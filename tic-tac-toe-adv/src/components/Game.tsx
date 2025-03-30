@@ -1,7 +1,10 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { WinnerInfo } from './WinnerInfo';
 import Board from './Board';
+
+
 
 
 export default function Game() {
@@ -13,6 +16,8 @@ export default function Game() {
 	const [boardSize, setBoardSize] = useState<number>(3);
 	const [history, setHistory] = useState<Array<Array<string | null>>>([Array(boardSize * boardSize).fill(null)]);
 	const [currentMove, setCurrentMove] = useState<number>(0);
+	const [winnerInfo, setWinnerInfo] = useState<WinnerInfo | null>(null);
+
 
 	const xIsNext = currentMove % 2 === 0;
 	const currentSquares = history[currentMove];
@@ -27,13 +32,15 @@ export default function Game() {
 			const newHistory = [Array(newBoardSize * newBoardSize).fill(null)];
 			setHistory(newHistory);
 			setCurrentMove(0);
+			setWinnerInfo(null);
 		}
 	}
 
-	function handlePlay(nextSquares : Array<string | null>) {
+	function handlePlay(nextSquares : Array<string | null>, newWinnerInfo: WinnerInfo | null) {
 		const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
 		setHistory(nextHistory);
 		setCurrentMove(nextHistory.length - 1);
+		setWinnerInfo(newWinnerInfo);
 	}
 
 	function jumpTo(nextMove : number) {
@@ -65,7 +72,7 @@ export default function Game() {
 					</select>
 				</div>
 				<div className="game-board">
-					<Board boardSize={boardSize} xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+					<Board boardSize={boardSize} xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} winnerInfo={winnerInfo} />
 				</div>
 				<div className="game-info">
 					<ol>{moves}</ol>
