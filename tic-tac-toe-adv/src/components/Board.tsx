@@ -16,6 +16,15 @@ type BoardProps = {
 
 export default function Board({boardSize, requiredLineLength, xIsNext, squares, onPlay, winnerInfo } : BoardProps) {
 
+
+	function getIndex(row: number, col: number): number {
+		return row * boardSize + col;
+	}
+
+	function isOnBoard(row: number, col: number) {
+		return (row > -1 && row < boardSize && col > -1 && col < boardSize);
+	}
+
 	function calculateWinnerAroundIndex(index: number, squares : Array<string | null>) : WinnerInfo | null {
 
 		const row = Math.floor(index / boardSize);
@@ -42,7 +51,7 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 			while(rIndex >= cFirst && match < requiredLineLength)
 			{
 				console.log(`Moving right: checking index ${rIndex}, has value ${squares[rIndex]}`);
-				if(squares[rIndex] == value)
+				if(squares[rIndex] === value)
 				{
 					line.push(rIndex);
 					match++;
@@ -60,7 +69,7 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 			while(lIndex < cLast && match < requiredLineLength)
 			{
 				console.log(`Moving left: checking index ${lIndex}, has value ${squares[lIndex]}`);
-				if(squares[lIndex] == value)
+				if(squares[lIndex] === value)
 				{
 					line.push(lIndex);
 					match++;
@@ -91,7 +100,7 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 			while(uIndex >= rFirst && match < requiredLineLength)
 			{
 				console.log(`Moving up: checking index ${uIndex}, has value ${squares[uIndex]}`);
-				if(squares[uIndex] == value)
+				if(squares[uIndex] === value)
 				{
 					line.push(uIndex);
 					match++;
@@ -109,7 +118,7 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 			while(dIndex <= rLast && match < requiredLineLength)
 			{
 				console.log(`Moving down: checking index ${dIndex}, has value ${squares[dIndex]}`);
-				if(squares[dIndex] == value)
+				if(squares[dIndex] === value)
 				{
 					line.push(dIndex);
 					match++;
@@ -129,6 +138,95 @@ export default function Board({boardSize, requiredLineLength, xIsNext, squares, 
 			}
 		}
 
+		// check vertical
+		{
+			// back slash diag
+			{
+				match = 1;
+				line.length = 1;
+
+				let cRow = row + 1;
+				let cCol = col + 1;
+
+				while(isOnBoard(cRow, cCol) && match < requiredLineLength)
+				{
+					let uIndex = getIndex(cRow, cCol);
+					if(squares[uIndex] === value) {
+						line.push(uIndex);
+						match++;
+						cRow ++;
+						cCol ++;
+					}
+					else {
+						break;
+					}
+				}
+
+				cRow = row - 1;
+				cCol = col - 1;
+
+				while(isOnBoard(cRow, cCol) && match < requiredLineLength)
+				{
+					let uIndex = getIndex(cRow, cCol);
+					if(squares[uIndex] === value) {
+						line.push(uIndex);
+						match++;
+						cRow --;
+						cCol --;
+					}
+					else {
+						break;
+					}
+				}
+
+				if(match === requiredLineLength)
+				{
+					return  {winner: value, line: line};
+				}
+			}
+
+			// forward slash diag
+			{
+				match = 1;
+				line.length = 1;
+
+				let cRow = row - 1;
+				let cCol = col + 1;
+
+				while(isOnBoard(cRow, cCol) && match < requiredLineLength) {
+					let uIndex = getIndex(cRow, cCol);
+					if(squares[uIndex] === value) {
+						line.push(uIndex);
+						match++;
+						cRow --;
+						cCol ++;
+					}
+					else {
+						break;
+					}
+				}
+
+				cRow = row + 1;
+				cCol = col - 1;
+
+				while(isOnBoard(cRow, cCol) && match < requiredLineLength) {
+					let uIndex = getIndex(cRow, cCol);
+					if(squares[uIndex] === value) {
+						line.push(uIndex);
+						match++;
+						cRow ++;
+						cCol --;
+					}
+					else {
+						break;
+					}
+				}
+
+				if(match === requiredLineLength) {
+					return  {winner: value, line: line};
+				}
+			}
+		}
 
 		return null;
 	}
