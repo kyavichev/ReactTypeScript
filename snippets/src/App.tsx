@@ -5,6 +5,7 @@ import Counter from './Components/Counter';
 import ItemList from './Components/ItemList';
 import ImageDownload from './Components/ImageDownload';
 import MapExample from './Components/MapExample';
+import Velocity from './Components/Velocity';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 			<ItemList />
 			<ImageDownload />
 			<MapExample />
+			<Velocity />
 		</div>
 	);
 }

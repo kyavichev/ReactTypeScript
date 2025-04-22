@@ -1,0 +1,38 @@
+
+.velocity-main {
+    width: 600px;
+	line-height: 0.8;
+}
+
+.velocity-input-block {
+	width: 100%;
+}
+
+.velocity-input-label {
+	width: 140px;
+	display: inline-block;
+	text-align: left;
+	padding-right: 10px;
+}
+
+.velocity-input-box {
+	width: 100px;
+	display: inline-block;
+}
+
+.velocity-input-details {
+	width: 200px;
+	display: inline-block;
+	text-align: left;
+	padding-left: 30px;
+}
+
+.velocity-output-block {
+	width: 100%;
+}
+
+
+.velocity-output-line {
+	padding-left: 100px;
+	text-align: left;
+}
