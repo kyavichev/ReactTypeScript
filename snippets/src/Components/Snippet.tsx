@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import './Snippet.css';
 
 
 export default function Snippet() {
@@ -11,9 +12,9 @@ export default function Snippet() {
     }
    
     return (
-      <div>
+      <p className="snippet-main">
         <input type="text" value={value} onChange={handleChange} />
         <p>You entered: {value}</p>
-      </div>
+      </p>
     );
   }
