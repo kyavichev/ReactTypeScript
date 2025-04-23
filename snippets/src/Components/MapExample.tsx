@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import './MapExample.css';
 
 
 export default function MapExample() {
@@ -15,6 +16,10 @@ export default function MapExample() {
         <div key={index}>{item.text}</div>
     ));
     
-    return <ul>{listItems}</ul>;
+    return (
+        <div className="map-example-main"> 
+            <ul>{listItems}</ul>
+        </div>
+     );
   }
   

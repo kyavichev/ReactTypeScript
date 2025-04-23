@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import './ItemList.css';
 
 
 export default function ItemList() {
@@ -10,6 +11,10 @@ export default function ItemList() {
     ];
 
     const listItems = items.map((item, index) => <li key={index}>{item.text}</li>);
-    return <ul>{listItems}</ul>;
+    return (
+        <div className="item-list-main">
+            <ul>{listItems}</ul>
+        </div> 
+    );
   }
   

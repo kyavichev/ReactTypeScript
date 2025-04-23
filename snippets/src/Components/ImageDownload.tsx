@@ -39,7 +39,7 @@ export default function ImageDownload() {
     const imageURL = "https://upload.wikimedia.org/wikipedia/en/6/6b/Hello_Web_Series_%28Wordmark%29_Logo.png";
 
     return (
-        <div className="App">
+        <div className="image-download-main">
             <a
                 href={imageURL}
                 download
