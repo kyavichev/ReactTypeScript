@@ -40,6 +40,8 @@ export default function ImageDownload() {
 
     return (
         <div className="image-download-main">
+            Click on the image to download
+            <br />
             <a
                 href={imageURL}
                 download

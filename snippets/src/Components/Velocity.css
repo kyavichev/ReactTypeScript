@@ -2,6 +2,8 @@
 .velocity-main {
     width: 600px;
 	line-height: 0.8;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .velocity-input-block {
