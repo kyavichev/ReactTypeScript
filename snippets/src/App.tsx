@@ -17,12 +17,14 @@ function App() {
 	
 	return (
 		<div className="App">
-			<Snippet />
-			<Counter />
-			<ItemList />
-			<ImageDownload />
-			<MapExample />
-			<Velocity />
+			<main>
+				<Snippet />
+				<Counter />
+				<ItemList />
+				<ImageDownload />
+				<MapExample />
+				<Velocity />
+			</main>
 			<Footer />
 		</div>
 	);
