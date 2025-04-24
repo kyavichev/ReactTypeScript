@@ -4,22 +4,30 @@
 {
 	width: 600px;
 	line-height: 1.4;
-	background-color: #eee;
-	padding: 20px;
+	background-color: #fefefe;
+	margin: 10px;
+	padding: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-radius: 10px;
+	border-color: #777;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
 }
 
 .map-example-main div:nth-of-type(odd) {
-	background-color: #fff; /* Light grey for odd rows */
+	background-color: #eee; /* Light grey for odd rows */
 }
   
 .map-example-main div:nth-of-type(even) {
-	background-color: #eee; /* White for even rows */
+	background-color: #fff; /* White for even rows */
 }
 
 .map-example-entry 
 {
+	margin-left: 10px;
+	margin-right: 10px;
 	padding-left: 10px;
 }
+
