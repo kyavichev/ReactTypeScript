@@ -16,10 +16,12 @@ type ResultData = {
 
 export default function Velocity() {
 
-	const [acceleration, setAcceleration] = useState<number>(5);
+	const [acceleration, setAcceleration] = useState<number>(8); // 11.11 is 62mph in 2.5
 	const [braking, setBraking] = useState<number>(4);
-	const [maxSpeed, setMaxSpeed] = useState<number>(27);
+	const [maxSpeed, setMaxSpeed] = useState<number>(28);
 	const [targetDistance, setTargetDistance] = useState<number>(1000);
+	const [initialSpeed, setInitialSpeed] = useState<number>(0);
+	const [finalSpeed, setFinalSpeed] = useState<number>(0);
 
 
 	function handleAccelerationChange(event: any) {
@@ -36,6 +38,14 @@ export default function Velocity() {
 
 	function handleTargetDistanceChange(event: any) {
 		setTargetDistance(event.target.value);
+	}
+
+	function handleInitialSpeedChange(event: any) {
+		setInitialSpeed(event.target.value);
+	}
+
+	function handleFinalSpeedChange(event: any) {
+		setFinalSpeed(event.target.value);
 	}
 
 	function calculate(): ResultData {
@@ -113,6 +123,16 @@ export default function Velocity() {
 			<div className="velocity-input-label">Distance Travelled:</div>
 			<input className="velocity-input-box" type="text" value={targetDistance} onChange={handleTargetDistanceChange} />
 			<div className="velocity-input-details"> {targetDistance} m </div>
+		</p>
+		<p className="velocity-input-block">
+			<div className="velocity-input-label">Initial Speed:</div>
+			<input className="velocity-input-box" type="text" value={initialSpeed} onChange={handleInitialSpeedChange} />
+			<div className="velocity-input-details"> {initialSpeed} m/s ({initialSpeed * (60*60/1000)} km/h) </div>
+		</p>
+		<p className="velocity-input-block">
+			<div className="velocity-input-label">Final Speed:</div>
+			<input className="velocity-input-box" type="text" value={finalSpeed} onChange={handleFinalSpeedChange} />
+			<div className="velocity-input-details"> {finalSpeed} m/s ({finalSpeed * (60*60/1000)} km/h) </div>
 		</p>
 
 		<p className="velocity-output-block">
