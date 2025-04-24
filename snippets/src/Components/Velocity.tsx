@@ -50,25 +50,41 @@ export default function Velocity() {
 
 	function calculate(): ResultData {
 
-		// Distances required to fully accelerate and brake at max speed
-		const d_accel: number = (maxSpeed * maxSpeed) / (2 * acceleration);
-		const d_brake: number = (maxSpeed * maxSpeed) / (2 * braking);
+		// Distance required to accelerate from v0 to vmax
+		const d_accel: number = (maxSpeed * maxSpeed - initialSpeed * initialSpeed) / (2 * acceleration);
+		// Distance required to decelerate from vmax to vf
+		const d_brake: number = (maxSpeed * maxSpeed - finalSpeed * finalSpeed) / (2 * braking);
 		const totalRequired: number = d_accel + d_brake;
+
+		// // Distances required to fully accelerate and brake at max speed
+		// const d_accel: number = (maxSpeed * maxSpeed) / (2 * acceleration);
+		// const d_brake: number = (maxSpeed * maxSpeed) / (2 * braking);
+		// const totalRequired: number = d_accel + d_brake;
 
 	
 		if (totalRequired > targetDistance)
 		{
 			// Not enough space to reach top speed
-			const vSquared: number = (2 * targetDistance) / ((1 / acceleration) + (1 / braking));
-        	const achievableSpeed: number = Math.sqrt(vSquared);
+			// const vSquared: number = (2 * targetDistance) / ((1 / acceleration) + (1 / braking));
+        	// const achievableSpeed: number = Math.sqrt(vSquared);
+
+			// vmax not reachable: calculate max speed based on distance and initial/final speeds
+			const vMaxSquared: number = (2 * acceleration * braking * totalDistance + braking * initialSpeed * initialSpeed + acceleration * finalSpeed * finalSpeed) / (acceleration + braking);
+        	const achievableSpeed = Math.sqrt(vMaxSquared);
+
+        	const accelTime = (achievableSpeed - initialSpeed) / acceleration;
+        	const brakeTime = (achievableSpeed - finalSpeed) / braking;
+
+			const accelDistance = (achievableSpeed * achievableSpeed - initialSpeed * initialSpeed) / (2 * acceleration);
+			const brakeDistance = (achievableSpeed * achievableSpeed - finalSpeed * finalSpeed) / (2 * braking);
 	
 			const result: ResultData = {
-				accelerationDistance: (achievableSpeed * achievableSpeed) / (2 * acceleration),
+				accelerationDistance: accelDistance,
 				coastingDistance: 0,
-				brakingDistance: (achievableSpeed * achievableSpeed) / (2 * braking),
+				brakingDistance: brakeDistance,
 				duration: 0,
-				accelerationDuration: achievableSpeed / acceleration,
-				brakingDuration: achievableSpeed / braking,
+				accelerationDuration: accelTime,
+				brakingDuration: brakeTime,
 				coastingDuration: 0,
 				topSpeed: achievableSpeed,
 			};
@@ -80,16 +96,25 @@ export default function Velocity() {
 		else
 		{
 			// Enough space to reach max speed and coast
+			// const d_coast: number = targetDistance - totalRequired;
+
 			const d_coast: number = targetDistance - totalRequired;
 
+			const accelTime: number = (maxSpeed - initialSpeed) / acceleration;
+        	const coastTime: number = d_coast / maxSpeed;
+        	const brakeTime: number = (maxSpeed - finalSpeed) / braking;
+
+			const accelDistance = (maxSpeed * maxSpeed - initialSpeed * initialSpeed) / (2 * acceleration);
+			const brakeDistance = (maxSpeed * maxSpeed - finalSpeed * finalSpeed) / (2 * braking);
+
 			const result: ResultData = {
-				accelerationDistance: (maxSpeed * maxSpeed) / (2 * acceleration),
+				accelerationDistance: accelDistance,
 				coastingDistance: d_coast,
-				brakingDistance: (maxSpeed * maxSpeed) / (2 * braking),
+				brakingDistance: brakeDistance,
 				duration: 0,
-				accelerationDuration: maxSpeed / acceleration,
-				brakingDuration: maxSpeed / braking,
-				coastingDuration: d_coast / maxSpeed,
+				accelerationDuration: accelTime,
+				brakingDuration: brakeTime,
+				coastingDuration: coastTime,
 				topSpeed: maxSpeed,
 			};
 
