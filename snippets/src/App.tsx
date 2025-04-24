@@ -6,6 +6,7 @@ import ItemList from './Components/ItemList';
 import ImageDownload from './Components/ImageDownload';
 import MapExample from './Components/MapExample';
 import Velocity from './Components/Velocity';
+import Footer from './Components/Footer';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
 			<ImageDownload />
 			<MapExample />
 			<Velocity />
+			<Footer />
 		</div>
 	);
 }
