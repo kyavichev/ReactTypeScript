@@ -3,10 +3,23 @@
 .map-example-main
 {
 	width: 600px;
-	line-height: 1;
+	line-height: 1.4;
 	background-color: #eee;
-	padding: 10px;
+	padding: 20px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
+}
+
+.map-example-main div:nth-of-type(odd) {
+	background-color: #fff; /* Light grey for odd rows */
+}
+  
+.map-example-main div:nth-of-type(even) {
+	background-color: #eee; /* White for even rows */
+}
+
+.map-example-entry 
+{
+	padding-left: 10px;
 }
