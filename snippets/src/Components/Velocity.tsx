@@ -129,38 +129,38 @@ export default function Velocity() {
    
 	return (
 	  <div className="velocity-main">
-		<p className="velocity-input-block">
+		<div className="velocity-input-block">
 			<div className="velocity-input-label">Acceleration:</div>
 			<input className="velocity-input-box" type="text" value={acceleration} onChange={handleAccelerationChange} />
 			<div className="velocity-input-details"> {acceleration} m/s² </div>
-		</p>
-		<p className="velocity-input-block">
+		</div>
+		<div className="velocity-input-block">
 			<div className="velocity-input-label">Braking:</div>
 			<input className="velocity-input-box" type="text" value={braking} onChange={handleBrakingChange} />
 			<div className="velocity-input-details"> {braking} m/s² </div>
-		</p>
-		<p className="velocity-input-block">
+		</div>
+		<div className="velocity-input-block">
 			<div className="velocity-input-label">Max Speed:</div>
 			<input className="velocity-input-box" type="text" value={maxSpeed} onChange={handleMaxSpeedChange} />
 			<div className="velocity-input-details"> {maxSpeed} m/s ({maxSpeed * (60*60/1000)} km/h) </div>
-		</p>
-		<p className="velocity-input-block">
+		</div>
+		<div className="velocity-input-block">
 			<div className="velocity-input-label">Distance Travelled:</div>
 			<input className="velocity-input-box" type="text" value={targetDistance} onChange={handleTargetDistanceChange} />
 			<div className="velocity-input-details"> {targetDistance} m </div>
-		</p>
-		<p className="velocity-input-block">
+		</div>
+		<div className="velocity-input-block">
 			<div className="velocity-input-label">Initial Speed:</div>
 			<input className="velocity-input-box" type="text" value={initialSpeed} onChange={handleInitialSpeedChange} />
 			<div className="velocity-input-details"> {initialSpeed} m/s ({initialSpeed * (60*60/1000)} km/h) </div>
-		</p>
-		<p className="velocity-input-block">
+		</div>
+		<div className="velocity-input-block">
 			<div className="velocity-input-label">Final Speed:</div>
 			<input className="velocity-input-box" type="text" value={finalSpeed} onChange={handleFinalSpeedChange} />
 			<div className="velocity-input-details"> {finalSpeed} m/s ({finalSpeed * (60*60/1000)} km/h) </div>
-		</p>
+		</div>
 
-		<p className="velocity-output-block">
+		<div className="velocity-output-block">
 			<p className="velocity-output-line">acceleration distance: {result?.accelerationDistance} m</p>
 			<p className="velocity-output-line">braking distance: {result?.brakingDistance} m</p>
 			<p className="velocity-output-line">duration: {result?.duration} s</p>	
@@ -169,7 +169,7 @@ export default function Velocity() {
 			<p className="velocity-output-line">braking duration: {result?.brakingDuration} s</p>	
 			<p className="velocity-output-line">top speed: {result?.topSpeed} m/s</p>
 			<p className="velocity-output-line">total distance: {totalDistance} m</p>
-		</p>
+		</div>
 	  </div>
 	);
 }
