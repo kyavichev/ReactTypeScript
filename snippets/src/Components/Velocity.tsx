@@ -179,7 +179,7 @@ export default function Velocity() {
 		<div className="velocity-input-block">
 			<div className="velocity-input-label">Max Speed:</div>
 			<input className="velocity-input-box" type="text" value={maxSpeed} onChange={handleMaxSpeedChange} />
-			<div className="velocity-input-details"> {maxSpeed} m/s ({maxSpeed * (60*60/1000)} km/h) </div>
+			<div className="velocity-input-details"> {maxSpeed} m/s ({getRounded(maxSpeed * (60*60/1000))} km/h) </div>
 		</div>
 		<div className="velocity-input-block">
 			<div className="velocity-input-label">Distance Travelled:</div>
@@ -189,23 +189,23 @@ export default function Velocity() {
 		<div className="velocity-input-block">
 			<div className="velocity-input-label">Initial Speed:</div>
 			<input className="velocity-input-box" type="text" value={initialSpeed} onChange={handleInitialSpeedChange} />
-			<div className="velocity-input-details"> {initialSpeed} m/s ({initialSpeed * (60*60/1000)} km/h) </div>
+			<div className="velocity-input-details"> {initialSpeed} m/s ({getRounded(initialSpeed * (60*60/1000))} km/h) </div>
 		</div>
 		<div className="velocity-input-block">
 			<div className="velocity-input-label">Final Speed:</div>
 			<input className="velocity-input-box" type="text" value={finalSpeed} onChange={handleFinalSpeedChange} />
-			<div className="velocity-input-details"> {finalSpeed} m/s ({finalSpeed * (60*60/1000)} km/h) </div>
+			<div className="velocity-input-details"> {finalSpeed} m/s ({getRounded(finalSpeed * (60*60/1000))} km/h) </div>
 		</div>
 
 		<div className="velocity-output-block">
 			<p className="velocity-output-line">acceleration distance: {getRounded(result?.accelerationDistance)} m</p>
 			<p className="velocity-output-line">braking distance: {getRounded(result?.brakingDistance)} m</p>
 			<p className="velocity-output-line">duration: {getRounded(result?.duration)} s</p>	
-			<p className="velocity-output-line">acceleration duration: {result?.accelerationDuration} s</p>
-			<p className="velocity-output-line">coasting duration: {result?.coastingDuration} s</p>
-			<p className="velocity-output-line">braking duration: {result?.brakingDuration} s</p>	
-			<p className="velocity-output-line">top speed: {result?.topSpeed} m/s</p>
-			<p className="velocity-output-line">total distance: {totalDistance} m</p>
+			<p className="velocity-output-line">acceleration duration: {getRounded(result?.accelerationDuration)} s</p>
+			<p className="velocity-output-line">coasting duration: {getRounded(result?.coastingDuration)} s</p>
+			<p className="velocity-output-line">braking duration: {getRounded(result?.brakingDuration)} s</p>	
+			<p className="velocity-output-line">top speed: {getRounded(result?.topSpeed)} m/s</p>
+			<p className="velocity-output-line">total distance: {getRounded(totalDistance)} m</p>
 		</div>
 
 		<LineChart chartData={chartData} title="Speed" />
