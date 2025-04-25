@@ -90,7 +90,7 @@ export default function ChartExample() {
 
 	return (
 		<div className="chart-example-main">
-			<LineChart chartData={chartData} />
+			<LineChart chartData={chartData} title="Users Gained between 2016-2020 and beyond..." />
 			<button onClick={refreshChartData}>Add data point</button>
 		</div>
 	);

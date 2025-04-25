@@ -1,5 +1,8 @@
 
 import React, { useState, useRef } from 'react';
+import Chart from "chart.js/auto";
+import { CategoryScale } from "chart.js";
+import LineChart from "./LineChart";
 import './Velocity.css';
 
 
@@ -48,11 +51,12 @@ export default function Velocity() {
 		setFinalSpeed(event.target.value);
 	}
 
+
 	function calculate(): ResultData {
 
-		// Distance required to accelerate from v0 to vmax
+		// Distance required to accelerate from initialSpeed to maxSpeed
 		const d_accel: number = (maxSpeed * maxSpeed - initialSpeed * initialSpeed) / (2 * acceleration);
-		// Distance required to decelerate from vmax to vf
+		// Distance required to decelerate from maxSpeed to finalSpeed
 		const d_brake: number = (maxSpeed * maxSpeed - finalSpeed * finalSpeed) / (2 * braking);
 		const totalRequired: number = d_accel + d_brake;
 
@@ -69,7 +73,7 @@ export default function Velocity() {
         	// const achievableSpeed: number = Math.sqrt(vSquared);
 
 			// vmax not reachable: calculate max speed based on distance and initial/final speeds
-			const vMaxSquared: number = (2 * acceleration * braking * totalDistance + braking * initialSpeed * initialSpeed + acceleration * finalSpeed * finalSpeed) / (acceleration + braking);
+			const vMaxSquared: number = (2 * acceleration * braking * targetDistance + braking * initialSpeed * initialSpeed + acceleration * finalSpeed * finalSpeed) / (acceleration + braking);
         	const achievableSpeed = Math.sqrt(vMaxSquared);
 
         	const accelTime = (achievableSpeed - initialSpeed) / acceleration;
@@ -124,11 +128,44 @@ export default function Velocity() {
 		}
 	}
 
+	function generateChartData(result: ResultData) {
+
+		let data2 = [];
+
+		data2.push({ id: 0, speed: initialSpeed, distance: 0 });
+		data2.push({ id: 1, speed: maxSpeed, distance: result.accelerationDistance });
+		if(result.coastingDistance > 0)
+		{
+			data2.push({ id: 2, speed: maxSpeed, distance: result.accelerationDistance + result.coastingDistance });
+		}
+		data2.push({ id: 3, speed: finalSpeed, distance: result.accelerationDistance + result.coastingDistance + result.brakingDistance })
+
+		const chartData = {
+			labels: data2.map((data) => data.distance), 
+			datasets: [
+				{
+					label: "Speed",
+					data: data2.map((data) => data.speed),
+					backgroundColor: ["rgba(75,192,192,1)", "#ecf0f1", "#50AF95", "#f3ba2f", "#2a71d0"],
+					borderColor: "black",
+					borderWidth: 2
+				}
+			]
+		};
+		return chartData;
+	}
+
+	function getRounded(input: number): number {
+		return Math.round(input * 100) / 100.0;
+	}
+
 	const result = calculate();
 	const totalDistance: number = result ? (result.accelerationDistance + result.coastingDistance + result.brakingDistance) : 0;
+	const chartData = generateChartData(result);
    
 	return (
 	  <div className="velocity-main">
+		<h2>Velocity</h2>
 		<div className="velocity-input-block">
 			<div className="velocity-input-label">Acceleration:</div>
 			<input className="velocity-input-box" type="text" value={acceleration} onChange={handleAccelerationChange} />
@@ -161,15 +198,17 @@ export default function Velocity() {
 		</div>
 
 		<div className="velocity-output-block">
-			<p className="velocity-output-line">acceleration distance: {result?.accelerationDistance} m</p>
-			<p className="velocity-output-line">braking distance: {result?.brakingDistance} m</p>
-			<p className="velocity-output-line">duration: {result?.duration} s</p>	
+			<p className="velocity-output-line">acceleration distance: {getRounded(result?.accelerationDistance)} m</p>
+			<p className="velocity-output-line">braking distance: {getRounded(result?.brakingDistance)} m</p>
+			<p className="velocity-output-line">duration: {getRounded(result?.duration)} s</p>	
 			<p className="velocity-output-line">acceleration duration: {result?.accelerationDuration} s</p>
 			<p className="velocity-output-line">coasting duration: {result?.coastingDuration} s</p>
 			<p className="velocity-output-line">braking duration: {result?.brakingDuration} s</p>	
 			<p className="velocity-output-line">top speed: {result?.topSpeed} m/s</p>
 			<p className="velocity-output-line">total distance: {totalDistance} m</p>
 		</div>
+
+		<LineChart chartData={chartData} title="Speed" />
 	  </div>
 	);
 }
