@@ -1,7 +1,11 @@
 
 import { useState } from 'react';
-import { Square } from "./Square";
+import { DoubleSide, Vector3 } from 'three';
+import { Square } from './Square';
 
+
+const COLOR = 'rgb(255, 125, 0)';
+const OPACITY = 1;
 
 
 export function Board() {
@@ -98,26 +102,17 @@ export function Board() {
 
     return (
         <>
-            <div>{status}</div>
-            <div>
-                <div>
-                    <Square label={squares[0]} onClicked={()=>{onSquareClicked(0)}} />
-                    <Square label={squares[1]} onClicked={()=>{onSquareClicked(1)}} />
-                    <Square label={squares[2]} onClicked={()=>{onSquareClicked(2)}} />
-                </div>
+            <Square label="x" position={new Vector3(0, 18, 0)} onClicked={()=>{onSquareClicked(6)}} />
+            <Square label="x" position={new Vector3(-18, 18, 0)} onClicked={()=>{onSquareClicked(6)}} />
+            <Square label="x" position={new Vector3(18, 18, 0)} onClicked={()=>{onSquareClicked(6)}} />
 
-                <div>
-                    <Square label={squares[3]} onClicked={()=>{onSquareClicked(3)}} />
-                    <Square label={squares[4]} onClicked={()=>{onSquareClicked(4)}} />
-                    <Square label={squares[5]} onClicked={()=>{onSquareClicked(5)}} />
-                </div>
+            <Square label="x" position={new Vector3(0, 0, 0)} onClicked={()=>{onSquareClicked(6)}} />
+            <Square label="x" position={new Vector3(-18, 0, 0)} onClicked={()=>{onSquareClicked(6)}} />
+            <Square label="x" position={new Vector3(18, 0, 0)} onClicked={()=>{onSquareClicked(6)}} />
 
-                <div>
-                    <Square label={squares[6]} onClicked={()=>{onSquareClicked(6)}} />
-                    <Square label={squares[7]} onClicked={()=>{onSquareClicked(7)}} />
-                    <Square label={squares[8]} onClicked={()=>{onSquareClicked(8)}} />
-                </div>
-            </div> 
+            <Square label="x" position={new Vector3(0, -18, 0)} onClicked={()=>{onSquareClicked(6)}} />
+            <Square label="x" position={new Vector3(-18, -18, 0)} onClicked={()=>{onSquareClicked(6)}} />
+            <Square label="x" position={new Vector3(18, -18, 0)} onClicked={()=>{onSquareClicked(6)}} />
         </>
     );
 }
