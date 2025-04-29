@@ -14,6 +14,7 @@ const Game = () => {
     const [isX, setIsX] = useState<boolean>(true);
     const [winner, setWinner] = useState<string | null>(null);
 
+	
     function onSquareClicked(index: number) {
         console.log(`${index}`);
 
@@ -36,9 +37,6 @@ const Game = () => {
     }
 
     function checkWinner(squares: Array<string | null>, tileIndex: number) {
-        // rows: 0, 1, 2
-        // col: [0, 3, 6], [1 , 4, 7]
-        // hor: [0, 4, 8] [2, 4, 6]
 
         const boardSize = 3;
         let row = Math.floor( tileIndex / boardSize );
@@ -66,38 +64,33 @@ const Game = () => {
             }
         }
 
-        // // rows
-        // for (let i = 0; i < 3; i++)
-        // {
-        //     let sA = squares[0 + i * 3];
-        //     let sB = squares[1 + i * 3];
-        //     let sC = squares[2 + i * 3];
+		// check if diag
+		// hor: [0, 4, 8] [2, 4, 6]
+		if ( row === col ) {
+			let sA = squares[0];
+			let sB = squares[4];
+			let sC = squares[8];
 
-        //     if(sA && sA === sB && sB === sC)
-        //     {
-        //         return sA;
-        //     }
-        // }
+			if(sA && sA === sB && sB === sC)
+			{
+				return sA;
+			}
+		}
+		if ( row + col === 2 ) {
+			let sA = squares[2];
+			let sB = squares[4];
+			let sC = squares[6];
 
-        // // columns
-        // for (let i = 0; i < 3; i++)
-        // {
-        //     let sA = squares[0 + i];
-        //     let sB = squares[3 + i];
-        //     let sC = squares[6 + i];
-
-        //     if(sA && sA === sB && sB === sC)
-        //     {
-        //         return sA;
-        //     }
-        // }
-
-        // diag
-
+			if(sA && sA === sB && sB === sC)
+			{
+				return sA;
+			}
+		}
 
         return null;
     }
 
+	
     const status = winner ? `Winner is ${winner}` : isX ? "Player X" : "Player O";
 
 	return(
