@@ -14,7 +14,6 @@ type SquareProps = {
 }
 
 export function Square({label, position, onClicked} : SquareProps) {
-    console.log(`label: ${label}`);
     return (
         <>
             <mesh receiveShadow position={position} onClick={onClicked}>
