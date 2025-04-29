@@ -5,7 +5,7 @@ import './Square.css'
 
 const COLOR = 'rgb(6, 255, 18)';
 const OPACITY = 1;
-const SCALE = 0.5;
+const SCALE = 0.45;
 
 
 type SymbolOProps = {
@@ -22,10 +22,10 @@ export function SymbolO({position}: SymbolOProps) {
 				side={DoubleSide}
 				opacity={OPACITY}
 				emissive={COLOR}
-				emissiveIntensity={1}
+				emissiveIntensity={0.25}
 				transparent
-				depthWrite={false}
-				depthTest={false}
+				depthWrite={true}
+				depthTest={true}
 			/>
 		</mesh>
 	);
