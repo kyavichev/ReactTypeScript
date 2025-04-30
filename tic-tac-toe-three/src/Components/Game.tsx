@@ -18,6 +18,10 @@ const Game = () => {
     function onSquareClicked(index: number) {
         console.log(`${index}`);
 
+		if(winner) {
+			return;
+		}
+
         if(squares[index]) {
             return;
         }
@@ -90,20 +94,16 @@ const Game = () => {
         return null;
     }
 
-	
+
     const status = winner ? `Winner is ${winner}` : isX ? "Player X" : "Player O";
 
 	return(
 		<div className='playarea'>
 			<div>{status}</div>
-			<Canvas>
+			<Canvas camera={{position: [0, 0, 50]}}>
 				<color args={['hsl(169, 54.80%, 59.20%)']} attach="background" />
 				<ambientLight intensity={0.5} />
 				<pointLight position={[50, 200, 50]} intensity={0.75} />
-				<mesh>
-					<boxGeometry args={[1, 1, 1]} />
-					<meshStandardMaterial color={'orange'} />
-				</mesh>
 				<Grid />
 				<Board squares={squares} onSquareClicked={onSquareClicked}/>
 				<OrbitControls
