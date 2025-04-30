@@ -1,5 +1,7 @@
 
-import { DoubleSide, Vector3 } from 'three';
+import { useRef } from 'react';
+import { DoubleSide, Vector3, Mesh } from 'three';
+import { useFrame } from '@react-three/fiber';
 import { SymbolX } from './SymbolX';
 import { SymbolO } from './SymbolO';
 import './Square.css'
@@ -14,9 +16,24 @@ type SquareProps = {
 }
 
 export function Square({label, position, onClicked} : SquareProps) {
+
+    const myMesh = useRef<Mesh>(null);
+
+    useFrame(({ clock }, delta) => {
+
+        if (!myMesh.current?.rotation) return;
+        (myMesh.current.rotation as any).y += -delta;
+
+        // if(myMesh.current) {
+        //     let rotation = myMesh.current?.rotation;
+        //     rotation.x = clock.elapsedTime;
+        //     myMesh.current.rotation = rotation;
+        // }
+    });
+
     return (
         <>
-            <mesh receiveShadow position={position} onClick={onClicked}>
+            <mesh ref={myMesh} receiveShadow position={position} onClick={onClicked}>
                 <planeGeometry args={[16, 16, 4, 4]} />
                 <meshStandardMaterial
                     color={COLOR}
