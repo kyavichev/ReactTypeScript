@@ -13,8 +13,12 @@ const WALK_TIME = 3;
 
 const layer = 1;
 
+type WalkerProps = {
+	onObjectDetected: (name: string) => void;
+};
 
-export function Walker() {
+
+export function Walker({onObjectDetected}: WalkerProps) {
 
 	const { scene, camera } = useThree()
 	const myMesh = useRef<Mesh>(null);
@@ -27,6 +31,7 @@ export function Walker() {
   	// const pointsArray = useRef(points);
 
 	const raycaster = useRef<Raycaster>(new Raycaster());
+	raycaster.current.layers.enable(1);
 
 	const rotation = useRef<Quaternion>(new Quaternion)
 
@@ -80,7 +85,8 @@ export function Walker() {
 			raycaster.current.set(originPos, dir);
 			const intersects = raycaster.current.intersectObjects(scene.children);
 			if(intersects.length > 0) {
-				console.log(intersects);
+				//console.log(intersects);
+				onObjectDetected(intersects[0].object.name);
 			}
 
 			raycastLineRef.current.position.copy(originPos);

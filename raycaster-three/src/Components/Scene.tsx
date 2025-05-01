@@ -10,7 +10,7 @@ const SCALE = 5;
 export function Scene() {
 	return (
 		<>
-			<mesh receiveShadow position={[-DISTANCE, 0, -10]} rotation={[0, Math.PI / 2, 0]} scale={[SCALE, SCALE, SCALE]} layers={[1]}>
+			<mesh name={"Box 1"} receiveShadow position={[-DISTANCE, 0, -10]} rotation={[0, Math.PI / 2, 0]} scale={[SCALE, SCALE, SCALE]} layers={[1]}>
 				<boxGeometry />
 				<meshStandardMaterial
 					color={COLOR}
@@ -22,7 +22,7 @@ export function Scene() {
 				/>
 			</mesh>
 
-			<mesh receiveShadow position={[DISTANCE, 0, 10]} rotation={[0, Math.PI / 2, 0]} scale={[SCALE, SCALE, SCALE]} layers={[1]}>
+			<mesh name={"Box 2"} receiveShadow position={[DISTANCE, 0, 10]} rotation={[0, Math.PI / 2, 0]} scale={[SCALE, SCALE, SCALE]} layers={[1]}>
 				<boxGeometry />
 				<meshStandardMaterial
 					color={COLOR}
@@ -34,7 +34,7 @@ export function Scene() {
 				/>
 			</mesh>
 
-			<mesh receiveShadow position={[-10, 0, DISTANCE]} rotation={[Math.PI / 2, 0, Math.PI / 2]} scale={[SCALE, SCALE, SCALE]} layers={[1]}>
+			<mesh name={"Box 3"} receiveShadow position={[-10, 0, DISTANCE]} rotation={[Math.PI / 2, 0, Math.PI / 2]} scale={[SCALE, SCALE, SCALE]} layers={[1]}>
 				<boxGeometry />
 				<meshStandardMaterial
 					color={COLOR}
@@ -46,7 +46,7 @@ export function Scene() {
 				/>
 			</mesh>
 
-			<mesh receiveShadow position={[10, 0, -DISTANCE]} rotation={[Math.PI / 2, 0, Math.PI / 2]} scale={[SCALE, SCALE, SCALE]} layers={[1]}>
+			<mesh name={"Box 4"} receiveShadow position={[10, 0, -DISTANCE]} rotation={[Math.PI / 2, 0, Math.PI / 2]} scale={[SCALE, SCALE, SCALE]} layers={[1]}>
 				<boxGeometry />
 				<meshStandardMaterial
 					color={COLOR}
