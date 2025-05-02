@@ -87,7 +87,7 @@ export function Walker({onObjectDetected}: WalkerProps) {
 
 	});
 
-	
+
 	return (
 		<>
 			<mesh ref={myMesh} receiveShadow position={[0, 0, 0]} scale={[2, 2, 2]} geometry={geometry} layers={[2]}>
@@ -98,11 +98,6 @@ export function Walker({onObjectDetected}: WalkerProps) {
 					transparent
 					depthWrite={false}
 					depthTest={false}
-				/>
-			</mesh>
-			<mesh receiveShadow position={[30, 0, 0]} scale={[2, 2, 2]} rotation={[0, 3.14, 0]} geometry={geometry} layers={[2]} >
-				<meshStandardMaterial
-					color='white'
 				/>
 			</mesh>
 			<LineComponent points={raycastPoints} />

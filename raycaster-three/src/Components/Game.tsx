@@ -29,7 +29,7 @@ function Game() {
 				<color args={['hsl(169, 54.80%, 59.20%)']} attach="background" />
 				<ambientLight intensity={0.5} />
 				<pointLight position={[50, 200, 50]} intensity={0.75} />
-				<axesHelper scale={[100, 100, 100]} />
+				<axesHelper scale={[100, 100, 100]} layers={[2]} />
 				<Scene />
 				<Walker onObjectDetected={onObjectDetected} />
 				<OrbitControls
