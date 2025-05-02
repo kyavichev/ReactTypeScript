@@ -3,6 +3,7 @@ import { useRef, useState, useMemo, useEffect } from 'react';
 import { DoubleSide, Vector3, Mesh, MathUtils, Raycaster, BoxGeometry, ConeGeometry, Quaternion } from 'three';
 import { useThree, useFrame } from '@react-three/fiber';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { LineComponent } from './LineComponent';
 
 
 const COLOR = 'rgb(255, 125, 0)';
@@ -20,6 +21,7 @@ type WalkerProps = {
 
 export function Walker({onObjectDetected}: WalkerProps) {
 
+	const [raycastPoints, setRaycastPoints] = useState<Vector3[]>([new Vector3(0, 0, 0), new Vector3(0, 30, -100)]);
 	const { scene, camera } = useThree()
 	const myMesh = useRef<Mesh>(null);
 	const waypointIndex = useRef<number>(1);
@@ -87,6 +89,9 @@ export function Walker({onObjectDetected}: WalkerProps) {
 			if(intersects.length > 0) {
 				//console.log(intersects);
 				onObjectDetected(intersects[0].object.name);
+
+				const newPoints = [originPos, intersects[0].point];
+				setRaycastPoints(newPoints);
 			}
 
 			raycastLineRef.current.position.copy(originPos);
@@ -117,6 +122,7 @@ export function Walker({onObjectDetected}: WalkerProps) {
 					color="red"
 				/>
 			</mesh>
+			<LineComponent points={raycastPoints} />
 		</>
 	);
 }
