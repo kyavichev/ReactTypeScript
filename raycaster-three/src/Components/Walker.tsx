@@ -26,22 +26,14 @@ export function Walker({onObjectDetected}: WalkerProps) {
 	const myMesh = useRef<Mesh>(null);
 	const waypointIndex = useRef<number>(1);
 	const walkTime = useRef<number>(0);
-	//const [points, setPoints] = useState<Vector3[]>([new Vector3(0, 0, 0), new Vector3(0, 0, 10)]);
-	//const pointsArray = useRef<Vector3[]>([new Vector3(0, 0, 0), new Vector3(0, 0, 10)]);
-
-	const raycastLineRef = useRef<Mesh>(null);
-  	// const pointsArray = useRef(points);
 
 	const raycaster = useRef<Raycaster>(new Raycaster());
 	raycaster.current.layers.enable(1);
-
-	const rotation = useRef<Quaternion>(new Quaternion)
 
 	const geometry = useMemo(() => {
 		const firstGeo = new BoxGeometry(2, 2, 2);
 		const secondGeo = new ConeGeometry(1, 2, 10);
 
-		//firstGeo.rotateZ(40);
 		secondGeo.translate(0, 1.8, 0);
 		secondGeo.rotateX(90 * 3.14 / 180.0);
 
@@ -77,11 +69,9 @@ export function Walker({onObjectDetected}: WalkerProps) {
 		myMesh.current.position.lerpVectors( WAY_POINTS[prevWaypoint], WAY_POINTS[waypointIndex.current], p );
 		myMesh.current.lookAt(WAY_POINTS[waypointIndex.current]);
 
-		if (raycastLineRef.current && raycaster.current) {
+		if (raycaster.current) {
 
-			raycastLineRef.current.rotation.copy(myMesh.current.rotation);
-
-			let originPos = myMesh.current.localToWorld(new Vector3(0, 0, 4));
+			let originPos = myMesh.current.localToWorld(new Vector3(0, 0, 3.1));
 			let dir = new Vector3();
 			myMesh.current.getWorldDirection(dir);
 			raycaster.current.set(originPos, dir);
@@ -93,12 +83,11 @@ export function Walker({onObjectDetected}: WalkerProps) {
 				const newPoints = [originPos, intersects[0].point];
 				setRaycastPoints(newPoints);
 			}
-
-			raycastLineRef.current.position.copy(originPos);
 		}
 
 	});
 
+	
 	return (
 		<>
 			<mesh ref={myMesh} receiveShadow position={[0, 0, 0]} scale={[2, 2, 2]} geometry={geometry} layers={[2]}>
@@ -111,15 +100,9 @@ export function Walker({onObjectDetected}: WalkerProps) {
 					depthTest={false}
 				/>
 			</mesh>
-			<mesh receiveShadow position={[30, 0, 0]} scale={[2, 2, 2]} rotation={[0, 3.14, 0]} geometry={geometry} >
+			<mesh receiveShadow position={[30, 0, 0]} scale={[2, 2, 2]} rotation={[0, 3.14, 0]} geometry={geometry} layers={[2]} >
 				<meshStandardMaterial
 					color='white'
-				/>
-			</mesh>
-			<mesh ref={raycastLineRef} receiveShadow position={[0, 0, 3]} scale={[.5, .5, 5]}>
-				<boxGeometry />
-				<meshStandardMaterial
-					color="red"
 				/>
 			</mesh>
 			<LineComponent points={raycastPoints} />
